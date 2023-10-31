@@ -1,0 +1,867 @@
+definitions:
+  service.QueryResponse:
+    properties:
+      data: {}
+    type: object
+info:
+  contact: {}
+  description: XNS(XPLA Name Service) gateway provides chain naming service for XPLA
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: XNS gateway
+  version: 0.0.1
+paths:
+  /controller/balance:
+    get:
+      consumes:
+      - application/json
+      description: Get balance of the controller contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Balance of the controller
+      tags:
+      - Controller
+  /controller/commitment/{label}/{domain-owner}/{secret}:
+    get:
+      consumes:
+      - application/json
+      description: Generate commitment by querying
+      parameters:
+      - description: domain name for register
+        in: path
+        name: label
+        required: true
+        type: string
+      - description: domain owner address
+        in: path
+        name: domain-owner
+        required: true
+        type: string
+      - description: secret words
+        in: path
+        name: secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Generate commitment
+      tags:
+      - Controller
+  /controller/config:
+    get:
+      consumes:
+      - application/json
+      description: Get the configuration of the controller contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Config of the controller
+      tags:
+      - Controller
+  /controller/register-amount/{label}/{duration}:
+    get:
+      consumes:
+      - application/json
+      description: Calculate cost to register domain
+      parameters:
+      - description: domain name for register
+        in: path
+        name: label
+        required: true
+        type: string
+      - description: expire duration
+        in: path
+        name: duration
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Calculate cost amount
+      tags:
+      - Controller
+  /controller/top-domain:
+    get:
+      consumes:
+      - application/json
+      description: Get top domain of the controller
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get top domain
+      tags:
+      - Controller
+  /nft-registrar/account-by-domain/{label}/{top_domain}:
+    get:
+      consumes:
+      - application/json
+      description: Get account address that has the retrieved domain
+      parameters:
+      - description: domain name to retrieve
+        in: path
+        name: label
+        required: true
+        type: string
+      - description: top level domain
+        in: path
+        name: top_domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Retrieve the account address by the domain
+      tags:
+      - NFT-Registrar
+  /nft-registrar/all-nft-info/{token-id}:
+    get:
+      consumes:
+      - application/json
+      description: Get the all NFT info by retrieving the token ID
+      parameters:
+      - description: the NFT token ID
+        in: path
+        name: token-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: All NFT info of the token ID
+      tags:
+      - NFT-Registrar
+  /nft-registrar/all-operators/{owner}:
+    get:
+      consumes:
+      - application/json
+      description: Get operators info of the owner
+      parameters:
+      - description: the owner owns NFT
+        in: path
+        name: owner
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Operators info of the owner
+      tags:
+      - NFT-Registrar
+  /nft-registrar/all-tokens:
+    get:
+      consumes:
+      - application/json
+      description: Get all tokens in the NFT registrar contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: All tokens in the contract
+      tags:
+      - NFT-Registrar
+  /nft-registrar/approval/{token-id}/{spender}:
+    get:
+      consumes:
+      - application/json
+      description: Get approval of the token ID with the spender
+      parameters:
+      - description: the NFT token ID
+        in: path
+        name: token-id
+        required: true
+        type: string
+      - description: the spender of the token ID
+        in: path
+        name: spender
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Approval of the token ID
+      tags:
+      - NFT-Registrar
+  /nft-registrar/approvals/{token-id}:
+    get:
+      consumes:
+      - application/json
+      description: Get approvals of the token ID
+      parameters:
+      - description: the owner owns NFT
+        in: path
+        name: token-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Approvals of the token ID
+      tags:
+      - NFT-Registrar
+  /nft-registrar/contract-info:
+    get:
+      consumes:
+      - application/json
+      description: Get the NFT registrar contract info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get the contract info
+      tags:
+      - NFT-Registrar
+  /nft-registrar/domain-by-account/{account}:
+    get:
+      consumes:
+      - application/json
+      description: Get domain by retrieving account address
+      parameters:
+      - description: account address to retrieve
+        in: path
+        name: account
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Retrieve the domain by the account address
+      tags:
+      - NFT-Registrar
+  /nft-registrar/domain-history-by-account/{account}:
+    get:
+      consumes:
+      - application/json
+      description: Get domain history by retrieving account address
+      parameters:
+      - description: account address to retrieve
+        in: path
+        name: account
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Retrieve the domain historyby the account address
+      tags:
+      - NFT-Registrar
+  /nft-registrar/expired-latest-domain/{label}/{top_domain}:
+    get:
+      consumes:
+      - application/json
+      description: Get domain info with expiration and the account who has the domain
+        lastly
+      parameters:
+      - description: domain name to retrieve
+        in: path
+        name: label
+        required: true
+        type: string
+      - description: top level domain
+        in: path
+        name: top_domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get domain info with expiration
+      tags:
+      - NFT-Registrar
+  /nft-registrar/hash/{input}:
+    get:
+      consumes:
+      - application/json
+      description: Get hash result for an input
+      parameters:
+      - description: any input
+        in: path
+        name: input
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get hash result
+      tags:
+      - NFT-Registrar
+  /nft-registrar/minter:
+    get:
+      consumes:
+      - application/json
+      description: The Minter of the NFT registrar contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Minter of the contract
+      tags:
+      - NFT-Registrar
+  /nft-registrar/nft-info/{token-id}:
+    get:
+      consumes:
+      - application/json
+      description: Get the NFT info by retrieving the token ID
+      parameters:
+      - description: the NFT token ID
+        in: path
+        name: token-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: NFT info of the token ID
+      tags:
+      - NFT-Registrar
+  /nft-registrar/num-tokens:
+    get:
+      consumes:
+      - application/json
+      description: Get the number of the all tokens in the NFT registrar contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: The number of the all tokens
+      tags:
+      - NFT-Registrar
+  /nft-registrar/owner-of/{token-id}:
+    get:
+      consumes:
+      - application/json
+      description: Get the owner info of the NFT by retrieving the token ID
+      parameters:
+      - description: the NFT token ID
+        in: path
+        name: token-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: the owner info of the NFT
+      tags:
+      - NFT-Registrar
+  /nft-registrar/registrar:
+    get:
+      consumes:
+      - application/json
+      description: Get connected address of the registrar contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get registrar
+      tags:
+      - NFT-Registrar
+  /nft-registrar/resolver:
+    get:
+      consumes:
+      - application/json
+      description: Get connected address of the resolver contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get resolver
+      tags:
+      - NFT-Registrar
+  /nft-registrar/subdomain/{subdomain_label}/{label}/{top_domain}:
+    get:
+      consumes:
+      - application/json
+      description: Get subdomain mapped data
+      parameters:
+      - description: subdomain label
+        in: path
+        name: subdomain_label
+        required: true
+        type: string
+      - description: domain name to retrieve
+        in: path
+        name: label
+        required: true
+        type: string
+      - description: top level domain
+        in: path
+        name: top_domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get subdomain data
+      tags:
+      - NFT-Registrar
+  /nft-registrar/subdomains/{label}/{top_domain}:
+    get:
+      consumes:
+      - application/json
+      description: Get subdomains list of the domain
+      parameters:
+      - description: domain name to retrieve
+        in: path
+        name: label
+        required: true
+        type: string
+      - description: top level domain
+        in: path
+        name: top_domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get subdomains
+      tags:
+      - NFT-Registrar
+  /nft-registrar/tokenid-by-domain/{label}/{top_domain}:
+    get:
+      consumes:
+      - application/json
+      description: Get token ID by domain
+      parameters:
+      - description: domain name to retrieve
+        in: path
+        name: label
+        required: true
+        type: string
+      - description: top level domain
+        in: path
+        name: top_domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get token ID by domain
+      tags:
+      - NFT-Registrar
+  /nft-registrar/tokens/{owner}:
+    get:
+      consumes:
+      - application/json
+      description: Get tokens that the owner has
+      parameters:
+      - description: the owner owns NFT
+        in: path
+        name: owner
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Tokens that the owner has
+      tags:
+      - NFT-Registrar
+  /registrar/config:
+    get:
+      consumes:
+      - application/json
+      description: Get configuration of the registrar contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Config of the contract
+      tags:
+      - Registrar
+  /registrar/controllers:
+    get:
+      consumes:
+      - application/json
+      description: Get linked controller contracts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: linked controllers
+      tags:
+      - Registrar
+  /registrar/nft-registrar:
+    get:
+      consumes:
+      - application/json
+      description: Get linked the NFT registrar contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: linked NFT registrar
+      tags:
+      - Registrar
+  /resolver/account_state/{account}:
+    get:
+      consumes:
+      - application/json
+      description: Get XNS state for the account
+      parameters:
+      - description: account address
+        in: path
+        name: account
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: XNS state for the account
+      tags:
+      - Resolver
+  /resolver/config:
+    get:
+      consumes:
+      - application/json
+      description: Get configuration of the resolver contract
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Config of the contract
+      tags:
+      - Resolver
+  /resolver/domain_state/{hashed_label}/{top_domain}:
+    get:
+      consumes:
+      - application/json
+      description: Get XNS state for the domain
+      parameters:
+      - description: hashed label
+        in: path
+        name: hashed_label
+        required: true
+        type: string
+      - description: top level domain
+        in: path
+        name: top_domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: XNS state for the domain
+      tags:
+      - Resolver
+  /resolver/free_account_state/{account}:
+    get:
+      consumes:
+      - application/json
+      description: Get XNS state for the free domain of the account
+      parameters:
+      - description: account address
+        in: path
+        name: account
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: XNS state for the free domain of the account
+      tags:
+      - Resolver
+  /resolver/subdomain/{hashed_label}/{hashed_subdomain_label}:
+    get:
+      consumes:
+      - application/json
+      description: Get XNS state for a subdomain
+      parameters:
+      - description: hashed label
+        in: path
+        name: hashed_label
+        required: true
+        type: string
+      - description: hashed subdomain label
+        in: path
+        name: hashed_subdomain_label
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: XNS state for a subdomain
+      tags:
+      - Resolver
+  /xns-contracts-info:
+    get:
+      consumes:
+      - application/json
+      description: Get XNS contracts info of the XNS gateway
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: XNS contracts info
+      tags:
+      - XNS-gateway
+swagger: "2.0"

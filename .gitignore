@@ -1,0 +1,13 @@
+# IDEs
+*.iml
+.idea
+.vscode
+
+# macOS
+.DS_Store
+
+# swagger
+swagger.sh
+
+# wasm files
+*.wasm

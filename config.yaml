@@ -1,0 +1,28 @@
+xns_gateway:
+  tcp_port: 12000
+  key_test: true
+
+target_chain:
+  chain_id: cube_47-5
+  lcd_url: http://localhost:1317
+  gas_adj: 1.4
+  gas_limit:
+  broadcast_mode: block
+
+contracts_option:
+  nft_registrar:
+    name: xns-nft-registrar
+    symbol: XNS
+  
+  controller:
+    top_price: 10000
+    middle_price: 100
+    low_price: 1
+    min_commitment_age: 1
+    max_commitment_age: 120
+    min_register_duration: 100
+    max_free_domain_register_duration: 30000
+    top_domain: xpla
+
+swagger_option:
+  server_host_ip: 10.10.10.10
