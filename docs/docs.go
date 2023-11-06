@@ -130,7 +130,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/controller/register-amount/{label}/{duration}": {
+        "/controller/register-cost/{label}/{duration}": {
             "get": {
                 "description": "Calculate cost to register domain",
                 "consumes": [
@@ -1084,7 +1084,45 @@ const docTemplate = `{
                 }
             }
         },
-        "/resolver/account_state/{account}": {
+        "/resolver/account-free-domain-state/{account}": {
+            "get": {
+                "description": "Get XNS state for the free domain of the account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resolver"
+                ],
+                "summary": "XNS state for the free domain of the account",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "account address",
+                        "name": "account",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/service.QueryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/service.QueryResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/resolver/account-state/{account}": {
             "get": {
                 "description": "Get XNS state for the account",
                 "consumes": [
@@ -1151,7 +1189,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/resolver/domain_state/{hashed_label}/{top_domain}": {
+        "/resolver/domain-state/{hashed_label}/{top_domain}": {
             "get": {
                 "description": "Get XNS state for the domain",
                 "consumes": [
@@ -1176,44 +1214,6 @@ const docTemplate = `{
                         "type": "string",
                         "description": "top level domain",
                         "name": "top_domain",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/service.QueryResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/service.QueryResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/resolver/free_account_state/{account}": {
-            "get": {
-                "description": "Get XNS state for the free domain of the account",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resolver"
-                ],
-                "summary": "XNS state for the free domain of the account",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "account address",
-                        "name": "account",
                         "in": "path",
                         "required": true
                     }

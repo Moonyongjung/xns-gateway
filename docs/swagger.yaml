@@ -85,7 +85,7 @@ paths:
       summary: Config of the controller
       tags:
       - Controller
-  /controller/register-amount/{label}/{duration}:
+  /controller/register-cost/{label}/{duration}:
     get:
       consumes:
       - application/json
@@ -716,7 +716,32 @@ paths:
       summary: linked NFT registrar
       tags:
       - Registrar
-  /resolver/account_state/{account}:
+  /resolver/account-free-domain-state/{account}:
+    get:
+      consumes:
+      - application/json
+      description: Get XNS state for the free domain of the account
+      parameters:
+      - description: account address
+        in: path
+        name: account
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: XNS state for the free domain of the account
+      tags:
+      - Resolver
+  /resolver/account-state/{account}:
     get:
       consumes:
       - application/json
@@ -760,7 +785,7 @@ paths:
       summary: Config of the contract
       tags:
       - Resolver
-  /resolver/domain_state/{hashed_label}/{top_domain}:
+  /resolver/domain-state/{hashed_label}/{top_domain}:
     get:
       consumes:
       - application/json
@@ -788,31 +813,6 @@ paths:
           schema:
             $ref: '#/definitions/service.QueryResponse'
       summary: XNS state for the domain
-      tags:
-      - Resolver
-  /resolver/free_account_state/{account}:
-    get:
-      consumes:
-      - application/json
-      description: Get XNS state for the free domain of the account
-      parameters:
-      - description: account address
-        in: path
-        name: account
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/service.QueryResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/service.QueryResponse'
-      summary: XNS state for the free domain of the account
       tags:
       - Resolver
   /resolver/subdomain/{hashed_label}/{hashed_subdomain_label}:
