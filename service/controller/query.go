@@ -66,7 +66,7 @@ func QueryConfig(xnsContext *types.XnsContext) (*service.QueryResponse, error) {
 	return Query(xnsContext, msg)
 }
 
-// QueryRegisterAmount godoc
+// QueryRegisterCost godoc
 // @Summary      Calculate cost amount
 // @Description  Calculate cost to register domain
 // @Tags         Controller
@@ -76,14 +76,14 @@ func QueryConfig(xnsContext *types.XnsContext) (*service.QueryResponse, error) {
 // @Param        duration path      string  true  "expire duration"
 // @Success      200      {object}  service.QueryResponse
 // @Failure      400      {object}  service.QueryResponse
-// @Router       /controller/register-amount/{label}/{duration} [get]
-func QueryRegisterAmount(xnsContext *types.XnsContext, label, duration string) (*service.QueryResponse, error) {
+// @Router       /controller/register-cost/{label}/{duration} [get]
+func QueryRegisterCost(xnsContext *types.XnsContext, label, duration string) (*service.QueryResponse, error) {
 	durationU64, err := xutil.FromStringToUint64(duration)
 	if err != nil {
 		return nil, util.LogErr(types.ErrParseData, err)
 	}
 
-	msg, err := NewControllerRegisterAmountQueryMsg(label, durationU64)
+	msg, err := NewControllerRegisterCostQueryMsg(label, durationU64)
 	if err != nil {
 		return nil, util.LogErr(types.ErrNewMsg, err)
 	}

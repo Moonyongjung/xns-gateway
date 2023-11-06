@@ -31,7 +31,7 @@ func QueryControllerCmd(xnsContext *types.XnsContext) *cobra.Command {
 		getCommitmentCmd(xnsContext),
 		controllerBalanceCmd(xnsContext),
 		getControllerConfigCmd(xnsContext),
-		calcRegisterAmountCmd(xnsContext),
+		calcRegisterCostCmd(xnsContext),
 		topDomainCmd(xnsContext),
 	)
 	return cmd
@@ -125,19 +125,19 @@ $ %s q ct config
 	return cmd
 }
 
-func calcRegisterAmountCmd(xnsContext *types.XnsContext) *cobra.Command {
+func calcRegisterCostCmd(xnsContext *types.XnsContext) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "register-amount",
+		Use:   "register-cost",
 		Short: "calculate register amount of the domain",
 		Args:  param.WithUsage(cobra.ExactArgs(2)),
 		Example: strings.TrimSpace(fmt.Sprintf(`
-$ %s query controller register-amount [label] [expire-duration]
-$ %s q ct register-amount [label] [expire-duration]
+$ %s query controller register-cost [label] [expire-duration]
+$ %s q ct register-cost [label] [expire-duration]
 		`, types.DefaultAppName, types.DefaultAppName)),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			label, duration := args[0], args[1]
 
-			res, err := controller.QueryRegisterAmount(xnsContext, label, duration)
+			res, err := controller.QueryRegisterCost(xnsContext, label, duration)
 			if err != nil {
 				return err
 			}

@@ -3,9 +3,9 @@ package controller
 const (
 	ControllerAPI = "controller"
 
-	QueryCommitmentLabel     = "commitment"
-	QueryBalanceLabel        = "balance"
-	QueryConfigLabel         = "config"
-	QueryRegisterAmountLabel = "register-amount"
-	QueryTopDomainLabel      = "top-domain"
+	QueryCommitmentLabel   = "commitment"
+	QueryBalanceLabel      = "balance"
+	QueryConfigLabel       = "config"
+	QueryRegisterCostLabel = "register-cost"
+	QueryTopDomainLabel    = "top-domain"
 )

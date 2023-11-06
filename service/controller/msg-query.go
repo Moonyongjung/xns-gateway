@@ -53,15 +53,15 @@ func NewControllerControllerBalanceQueryMsg() (string, error) {
 	return string(bytes), nil
 }
 
-type controllerRegisterAmountQueryMsg struct {
+type controllerRegisterCostQueryMsg struct {
 	RegisterCost struct {
 		Label          string `json:"label"`
 		ExpireDuration uint64 `json:"expire_duration"`
 	} `json:"register_cost"`
 }
 
-func NewControllerRegisterAmountQueryMsg(label string, expireDuration uint64) (string, error) {
-	var msg controllerRegisterAmountQueryMsg
+func NewControllerRegisterCostQueryMsg(label string, expireDuration uint64) (string, error) {
+	var msg controllerRegisterCostQueryMsg
 
 	msg.RegisterCost.Label = label
 	msg.RegisterCost.ExpireDuration = expireDuration

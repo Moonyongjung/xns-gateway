@@ -53,7 +53,7 @@ func (c *contractService) Router(xnsContext *types.XnsContext, mux *chi.Mux) *ch
 		service.Consume(w, res, err, xnsContext)
 	})
 
-	mux.HandleFunc(path.Join(api.APIVersion, ControllerAPI, QueryRegisterAmountLabel, api.AnyLabel), func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(path.Join(api.APIVersion, ControllerAPI, QueryRegisterCostLabel, api.AnyLabel), func(w http.ResponseWriter, r *http.Request) {
 		label, err := util.ParseAPI1Data(r)
 		if err != nil {
 			service.Consume(w, nil, err, xnsContext)
@@ -64,7 +64,7 @@ func (c *contractService) Router(xnsContext *types.XnsContext, mux *chi.Mux) *ch
 			service.Consume(w, nil, err, xnsContext)
 			return
 		}
-		res, err := QueryRegisterAmount(xnsContext, label, duration)
+		res, err := QueryRegisterCost(xnsContext, label, duration)
 		service.Consume(w, res, err, xnsContext)
 	})
 
