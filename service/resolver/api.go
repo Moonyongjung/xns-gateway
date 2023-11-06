@@ -3,9 +3,9 @@ package resolver
 const (
 	ResolverAPI = "resolver"
 
-	QueryConfigLabel           = "config"
-	QueryDomainStateLabel      = "domain_state"
-	QueryAccountStateLabel     = "account_state"
-	QueryFreeAccountStateLabel = "free_account_state"
-	QuerySubdomainLabel        = "subdomain"
+	QueryConfigLabel                 = "config"
+	QueryDomainStateLabel            = "domain-state"
+	QueryAccountStateLabel           = "account-state"
+	QueryAccountFreeDomainStateLabel = "account-free-domain-state"
+	QuerySubdomainLabel              = "subdomain"
 )

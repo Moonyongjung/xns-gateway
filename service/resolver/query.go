@@ -35,7 +35,7 @@ func QueryConfig(xnsContext *types.XnsContext) (*service.QueryResponse, error) {
 // @Param        top_domain   path      string  true  "top level domain"
 // @Success      200    {object}  service.QueryResponse
 // @Failure      400    {object}  service.QueryResponse
-// @Router       /resolver/domain_state/{hashed_label}/{top_domain} [get]
+// @Router       /resolver/domain-state/{hashed_label}/{top_domain} [get]
 func QueryDomainState(xnsContext *types.XnsContext, hashedLabel, topDomain string) (*service.QueryResponse, error) {
 	msg, err := NewResolverGetDomainStateMsg(hashedLabel, topDomain)
 	if err != nil {
@@ -54,7 +54,7 @@ func QueryDomainState(xnsContext *types.XnsContext, hashedLabel, topDomain strin
 // @Param        account path      string  true  "account address"
 // @Success      200     {object}  service.QueryResponse
 // @Failure      400     {object}  service.QueryResponse
-// @Router       /resolver/account_state/{account} [get]
+// @Router       /resolver/account-state/{account} [get]
 func QueryAccountState(xnsContext *types.XnsContext, account string) (*service.QueryResponse, error) {
 	msg, err := NewResolverGetAccountStateMsg(account)
 	if err != nil {
@@ -64,7 +64,7 @@ func QueryAccountState(xnsContext *types.XnsContext, account string) (*service.Q
 	return Query(xnsContext, msg)
 }
 
-// QueryFreeAccountState godoc
+// QueryAccountFreeDomainState godoc
 // @Summary      XNS state for the free domain of the account
 // @Description  Get XNS state for the free domain of the account
 // @Tags         Resolver
@@ -73,9 +73,9 @@ func QueryAccountState(xnsContext *types.XnsContext, account string) (*service.Q
 // @Param        account path      string  true  "account address"
 // @Success      200     {object}  service.QueryResponse
 // @Failure      400     {object}  service.QueryResponse
-// @Router       /resolver/free_account_state/{account} [get]
-func QueryFreeAccountState(xnsContext *types.XnsContext, account string) (*service.QueryResponse, error) {
-	msg, err := NewResolverGetFreeAccountStateMsg(account)
+// @Router       /resolver/account-free-domain-state/{account} [get]
+func QueryAccountFreeDomainState(xnsContext *types.XnsContext, account string) (*service.QueryResponse, error) {
+	msg, err := NewResolverGetAccountFreeDomainStateMsg(account)
 	if err != nil {
 		return nil, util.LogErr(types.ErrNewMsg, err)
 	}

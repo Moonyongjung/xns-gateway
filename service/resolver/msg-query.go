@@ -55,14 +55,14 @@ func NewResolverGetAccountStateMsg(account string) (string, error) {
 	return string(bytes), nil
 }
 
-type resolverGetFreeAccountStateMsg struct {
+type resolverGetAccountFreeDomainStateMsg struct {
 	FreeAccountState struct {
 		Account string `json:"account"`
 	} `json:"free_account_state"`
 }
 
-func NewResolverGetFreeAccountStateMsg(account string) (string, error) {
-	var msg resolverGetFreeAccountStateMsg
+func NewResolverGetAccountFreeDomainStateMsg(account string) (string, error) {
+	var msg resolverGetAccountFreeDomainStateMsg
 
 	msg.FreeAccountState.Account = account
 

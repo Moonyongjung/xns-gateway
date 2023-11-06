@@ -53,13 +53,13 @@ func (c *contractService) Router(xnsContext *types.XnsContext, mux *chi.Mux) *ch
 		service.Consume(w, res, err, xnsContext)
 	})
 
-	mux.HandleFunc(path.Join(api.APIVersion, ResolverAPI, QueryFreeAccountStateLabel, api.AnyLabel), func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(path.Join(api.APIVersion, ResolverAPI, QueryAccountFreeDomainStateLabel, api.AnyLabel), func(w http.ResponseWriter, r *http.Request) {
 		account, err := util.ParseAPI1Data(r)
 		if err != nil {
 			service.Consume(w, nil, err, xnsContext)
 			return
 		}
-		res, err := QueryFreeAccountState(xnsContext, account)
+		res, err := QueryAccountFreeDomainState(xnsContext, account)
 		service.Consume(w, res, err, xnsContext)
 	})
 
