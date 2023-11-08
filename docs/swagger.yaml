@@ -134,7 +134,7 @@ paths:
       summary: Get top domain
       tags:
       - Controller
-  /nft-registrar/account-by-domain/{label}/{top_domain}:
+  /nft-registrar/account-by-domain/{label}/{top-domain}:
     get:
       consumes:
       - application/json
@@ -357,7 +357,7 @@ paths:
       summary: Retrieve the domain historyby the account address
       tags:
       - NFT-Registrar
-  /nft-registrar/expired-latest-domain/{label}/{top_domain}:
+  /nft-registrar/expired-latest-domain/{label}/{top-domain}:
     get:
       consumes:
       - application/json
@@ -539,7 +539,7 @@ paths:
       summary: Get resolver
       tags:
       - NFT-Registrar
-  /nft-registrar/subdomain/{subdomain_label}/{label}/{top_domain}:
+  /nft-registrar/subdomain/{subdomain-label}/{label}/{top-domain}:
     get:
       consumes:
       - application/json
@@ -574,7 +574,7 @@ paths:
       summary: Get subdomain data
       tags:
       - NFT-Registrar
-  /nft-registrar/subdomains/{label}/{top_domain}:
+  /nft-registrar/subdomains/{label}/{top-domain}:
     get:
       consumes:
       - application/json
@@ -604,7 +604,7 @@ paths:
       summary: Get subdomains
       tags:
       - NFT-Registrar
-  /nft-registrar/tokenid-by-domain/{label}/{top_domain}:
+  /nft-registrar/tokenid-by-domain/{label}/{top-domain}:
     get:
       consumes:
       - application/json
@@ -785,7 +785,7 @@ paths:
       summary: Config of the contract
       tags:
       - Resolver
-  /resolver/domain-state/{hashed_label}/{top_domain}:
+  /resolver/domain-state/{hashed-label}/{top-domain}:
     get:
       consumes:
       - application/json
@@ -815,7 +815,7 @@ paths:
       summary: XNS state for the domain
       tags:
       - Resolver
-  /resolver/subdomain/{hashed_label}/{hashed_subdomain_label}:
+  /resolver/subdomain/{hashed-label}/{hashed-subdomain-label}:
     get:
       consumes:
       - application/json

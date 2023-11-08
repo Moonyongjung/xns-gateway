@@ -35,7 +35,7 @@ func QueryConfig(xnsContext *types.XnsContext) (*service.QueryResponse, error) {
 // @Param        top_domain   path      string  true  "top level domain"
 // @Success      200    {object}  service.QueryResponse
 // @Failure      400    {object}  service.QueryResponse
-// @Router       /resolver/domain-state/{hashed_label}/{top_domain} [get]
+// @Router       /resolver/domain-state/{hashed-label}/{top-domain} [get]
 func QueryDomainState(xnsContext *types.XnsContext, hashedLabel, topDomain string) (*service.QueryResponse, error) {
 	msg, err := NewResolverGetDomainStateMsg(hashedLabel, topDomain)
 	if err != nil {
@@ -93,7 +93,7 @@ func QueryAccountFreeDomainState(xnsContext *types.XnsContext, account string) (
 // @Param        hashed_subdomain_label path      string  true  "hashed subdomain label"
 // @Success      200              {object}  service.QueryResponse
 // @Failure      400              {object}  service.QueryResponse
-// @Router       /resolver/subdomain/{hashed_label}/{hashed_subdomain_label} [get]
+// @Router       /resolver/subdomain/{hashed-label}/{hashed-subdomain-label} [get]
 func QuerySubdomain(xnsContext *types.XnsContext, hashedLabel, hashedSubdomainLabel string) (*service.QueryResponse, error) {
 	msg, err := NewResolverGetSubdomainMsg(hashedLabel, hashedSubdomainLabel)
 	if err != nil {

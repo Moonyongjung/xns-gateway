@@ -54,7 +54,7 @@ func QueryResolver(xnsContext *types.XnsContext) (*service.QueryResponse, error)
 // @Param        top_domain path      string  true  "top level domain"
 // @Success      200    {object}  service.QueryResponse
 // @Failure      400    {object}  service.QueryResponse
-// @Router       /nft-registrar/account-by-domain/{label}/{top_domain} [get]
+// @Router       /nft-registrar/account-by-domain/{label}/{top-domain} [get]
 func QueryAccountByDomain(xnsContext *types.XnsContext, label, topDomain string) (*service.QueryResponse, error) {
 	msg, err := NewNftRegistrarAccountByDomainQueryMsg(label, topDomain)
 	if err != nil {
@@ -112,7 +112,7 @@ func QueryDomainHistoryByAccount(xnsContext *types.XnsContext, account string) (
 // @Param        top_domain path      string  true  "top level domain"
 // @Success      200    {object}  service.QueryResponse
 // @Failure      400    {object}  service.QueryResponse
-// @Router       /nft-registrar/expired-latest-domain/{label}/{top_domain} [get]
+// @Router       /nft-registrar/expired-latest-domain/{label}/{top-domain} [get]
 func QueryExpiredLatestDomain(xnsContext *types.XnsContext, label, topDomain string) (*service.QueryResponse, error) {
 	msg, err := NewNftRegistrarExpiredLatestDomainQueryMsg(label, topDomain)
 	if err != nil {
@@ -132,7 +132,7 @@ func QueryExpiredLatestDomain(xnsContext *types.XnsContext, label, topDomain str
 // @Param        top_domain path      string  true  "top level domain"
 // @Success      200    {object}  service.QueryResponse
 // @Failure      400    {object}  service.QueryResponse
-// @Router       /nft-registrar/tokenid-by-domain/{label}/{top_domain} [get]
+// @Router       /nft-registrar/tokenid-by-domain/{label}/{top-domain} [get]
 func QueryTokenIDByDomain(xnsContext *types.XnsContext, label, topDomain string) (*service.QueryResponse, error) {
 	msg, err := NewNftRegistrarTokenIDByDomainQueryMsg(label, topDomain)
 	if err != nil {
@@ -153,7 +153,7 @@ func QueryTokenIDByDomain(xnsContext *types.XnsContext, label, topDomain string)
 // @Param        top_domain      path      string  true  "top level domain"
 // @Success      200    {object}  service.QueryResponse
 // @Failure      400    {object}  service.QueryResponse
-// @Router       /nft-registrar/subdomain/{subdomain_label}/{label}/{top_domain} [get]
+// @Router       /nft-registrar/subdomain/{subdomain-label}/{label}/{top-domain} [get]
 func QuerySubdomain(xnsContext *types.XnsContext, subdomainLabel, label, topDomain string) (*service.QueryResponse, error) {
 	msg, err := NewNftRegistrarSubdomainQueryMsg(subdomainLabel, label, topDomain)
 	if err != nil {
@@ -173,7 +173,7 @@ func QuerySubdomain(xnsContext *types.XnsContext, subdomainLabel, label, topDoma
 // @Param        top_domain      path      string  true  "top level domain"
 // @Success      200    {object}  service.QueryResponse
 // @Failure      400    {object}  service.QueryResponse
-// @Router       /nft-registrar/subdomains/{label}/{top_domain} [get]
+// @Router       /nft-registrar/subdomains/{label}/{top-domain} [get]
 func QuerySubdomains(xnsContext *types.XnsContext, label, topDomain string) (*service.QueryResponse, error) {
 	msg, err := NewNftRegistrarSubdomainsQueryMsg(label, topDomain)
 	if err != nil {

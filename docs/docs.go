@@ -204,7 +204,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/nft-registrar/account-by-domain/{label}/{top_domain}": {
+        "/nft-registrar/account-by-domain/{label}/{top-domain}": {
             "get": {
                 "description": "Get account address that has the retrieved domain",
                 "consumes": [
@@ -542,7 +542,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/nft-registrar/expired-latest-domain/{label}/{top_domain}": {
+        "/nft-registrar/expired-latest-domain/{label}/{top-domain}": {
             "get": {
                 "description": "Get domain info with expiration and the account who has the domain lastly",
                 "consumes": [
@@ -817,7 +817,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/nft-registrar/subdomain/{subdomain_label}/{label}/{top_domain}": {
+        "/nft-registrar/subdomain/{subdomain-label}/{label}/{top-domain}": {
             "get": {
                 "description": "Get subdomain mapped data",
                 "consumes": [
@@ -869,7 +869,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/nft-registrar/subdomains/{label}/{top_domain}": {
+        "/nft-registrar/subdomains/{label}/{top-domain}": {
             "get": {
                 "description": "Get subdomains list of the domain",
                 "consumes": [
@@ -914,7 +914,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/nft-registrar/tokenid-by-domain/{label}/{top_domain}": {
+        "/nft-registrar/tokenid-by-domain/{label}/{top-domain}": {
             "get": {
                 "description": "Get token ID by domain",
                 "consumes": [
@@ -1189,7 +1189,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/resolver/domain-state/{hashed_label}/{top_domain}": {
+        "/resolver/domain-state/{hashed-label}/{top-domain}": {
             "get": {
                 "description": "Get XNS state for the domain",
                 "consumes": [
@@ -1234,7 +1234,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/resolver/subdomain/{hashed_label}/{hashed_subdomain_label}": {
+        "/resolver/subdomain/{hashed-label}/{hashed-subdomain-label}": {
             "get": {
                 "description": "Get XNS state for a subdomain",
                 "consumes": [
