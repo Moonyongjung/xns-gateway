@@ -11,8 +11,6 @@ const (
 	DefaultTopPrice                      = "100000"
 	DefaultMiddlePrice                   = "1000"
 	DefaultLowPrice                      = "10"
-	DefaultMinCommitmentAge              = "600"
-	DefaultMaxCommitmentAge              = "20000"
 	DefaultMinRegisterDuration           = "100"
 	DefaultMaxFreeDomainRegisterDuration = "30000"
 )
@@ -58,16 +56,6 @@ func NewControllerInstantiateMsg(app types.App, registrarContractAddress string)
 		lowPrice = DefaultLowPrice
 	}
 
-	minCommitmentAge := app.Config.ContractsOption.Controller.MinCommitmentAge
-	if minCommitmentAge == "" {
-		minCommitmentAge = DefaultMinCommitmentAge
-	}
-
-	maxCommitmentAge := app.Config.ContractsOption.Controller.MaxCommitmentAge
-	if maxCommitmentAge == "" {
-		maxCommitmentAge = DefaultMaxCommitmentAge
-	}
-
 	minRegisterDuration := app.Config.ContractsOption.Controller.MinRegisterDuration
 	if minRegisterDuration == "" {
 		minRegisterDuration = DefaultMinRegisterDuration
@@ -87,8 +75,6 @@ func NewControllerInstantiateMsg(app types.App, registrarContractAddress string)
 		"top_price":` + topPrice + `,
 		"middle_price":` + middlePrice + `,
 		"low_price":` + lowPrice + `,
-		"min_commitment_age":` + minCommitmentAge + `,
-		"max_commitment_age":` + maxCommitmentAge + `,
 		"min_register_duration":` + minRegisterDuration + `,
 		"max_free_domain_register_duration":` + maxFreeDomainRegisterDuration + `,
 		"registrar_address":"` + registrarContractAddress + `",

@@ -40,58 +40,6 @@
                 }
             }
         },
-        "/controller/commitment/{label}/{domain-owner}/{secret}": {
-            "get": {
-                "description": "Generate commitment by querying",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Controller"
-                ],
-                "summary": "Generate commitment",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "domain name for register",
-                        "name": "label",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "domain owner address",
-                        "name": "domain-owner",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "secret words",
-                        "name": "secret",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/service.QueryResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/service.QueryResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/controller/config": {
             "get": {
                 "description": "Get the configuration of the controller contract",

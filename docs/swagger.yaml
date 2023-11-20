@@ -31,41 +31,6 @@ paths:
       summary: Balance of the controller
       tags:
       - Controller
-  /controller/commitment/{label}/{domain-owner}/{secret}:
-    get:
-      consumes:
-      - application/json
-      description: Generate commitment by querying
-      parameters:
-      - description: domain name for register
-        in: path
-        name: label
-        required: true
-        type: string
-      - description: domain owner address
-        in: path
-        name: domain-owner
-        required: true
-        type: string
-      - description: secret words
-        in: path
-        name: secret
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/service.QueryResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/service.QueryResponse'
-      summary: Generate commitment
-      tags:
-      - Controller
   /controller/config:
     get:
       consumes:

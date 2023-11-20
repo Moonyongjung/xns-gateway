@@ -28,44 +28,11 @@ func QueryControllerCmd(xnsContext *types.XnsContext) *cobra.Command {
 	}
 
 	cmd.AddCommand(
-		getCommitmentCmd(xnsContext),
 		controllerBalanceCmd(xnsContext),
 		getControllerConfigCmd(xnsContext),
 		calcRegisterCostCmd(xnsContext),
 		topDomainCmd(xnsContext),
 	)
-	return cmd
-}
-
-func getCommitmentCmd(xnsContext *types.XnsContext) *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "commitment",
-		Short: "generate commitment to submit",
-		Args:  param.WithUsage(cobra.ExactArgs(3)),
-		Example: strings.TrimSpace(fmt.Sprintf(`
-$ %s query controller commitment [label] [domain-owner] [secret]  
-$ %s q ct commitment [label] [domain-owner] [secret]  
-		`, types.DefaultAppName, types.DefaultAppName)),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			label := args[0]
-			domainOwner := args[1]
-			secret := args[2]
-
-			res, err := controller.QueryCommitment(xnsContext, label, domainOwner, secret)
-			if err != nil {
-				return err
-			}
-
-			resBytes, err := json.Marshal(*res)
-			if err != nil {
-				return util.LogErr(types.ErrParseData, err)
-			}
-
-			util.LogInfo(string(resBytes))
-			return nil
-		},
-	}
-
 	return cmd
 }
 
