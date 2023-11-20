@@ -15,6 +15,7 @@ XNS gateway is a program that supports easily XNS contract deployment for busine
 
 |XNS gateway|XNS contract|Note|
 |:--:|:--:|:--:|
+|v0.0.2|v0.2.0||
 |v0.0.1|v0.1.0||
 
 ## Install

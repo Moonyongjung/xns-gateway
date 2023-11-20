@@ -18,8 +18,6 @@ contracts_option:
     top_price: 10000
     middle_price: 100
     low_price: 1
-    min_commitment_age: 1
-    max_commitment_age: 120
     min_register_duration: 100
     max_free_domain_register_duration: 30000
     top_domain: xpla

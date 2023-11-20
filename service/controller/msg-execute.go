@@ -13,15 +13,13 @@ type controllerSetConfigExecuteMsg struct {
 		TopPrice            uint64 `json:"top_price,omitempty"`
 		MiddlePrice         uint64 `json:"middle_price,omitempty"`
 		LowPrice            uint64 `json:"low_price,omitempty"`
-		MinCommitmentAge    uint64 `json:"min_commitment_age,omitempty"`
-		MaxCommitmentAge    uint64 `json:"max_commitment_age,omitempty"`
 		MinRegisterDuration uint64 `json:"min_register_duration,omitempty"`
 		RegistrarAddress    string `json:"registrar_address,omitempty"`
 	} `json:"set_config"`
 }
 
 func NewControllerSetConfigExecuteMsg(
-	topPrice, middlePrice, lowPrice, minCommitmentAge, maxCommitmentAge, minRegisterDuration, registrarAddress interface{},
+	topPrice, middlePrice, lowPrice, minRegisterDuration, registrarAddress interface{},
 ) (string, error) {
 	var msg controllerSetConfigExecuteMsg
 
@@ -49,22 +47,6 @@ func NewControllerSetConfigExecuteMsg(
 		msg.SetConfig.LowPrice = lowPriceAssertion
 	}
 
-	if minCommitmentAge != nil {
-		minCommitmentAgeAssertion, ok := minCommitmentAge.(uint64)
-		if !ok {
-			return "", fmt.Errorf(types.ErrMsgInvalidDataType)
-		}
-		msg.SetConfig.MinCommitmentAge = minCommitmentAgeAssertion
-	}
-
-	if maxCommitmentAge != nil {
-		maxCommitmentAgeAssertion, ok := maxCommitmentAge.(uint64)
-		if !ok {
-			return "", fmt.Errorf(types.ErrMsgInvalidDataType)
-		}
-		msg.SetConfig.MaxCommitmentAge = maxCommitmentAgeAssertion
-	}
-
 	if minRegisterDuration != nil {
 		minRegisterDurationAssertion, ok := minRegisterDuration.(uint64)
 		if !ok {
@@ -80,24 +62,6 @@ func NewControllerSetConfigExecuteMsg(
 		}
 		msg.SetConfig.RegistrarAddress = registrarAddressAssertion
 	}
-
-	bytes, err := json.Marshal(msg)
-	if err != nil {
-		return "", err
-	}
-	return string(bytes), nil
-}
-
-type controllerSubmitCommitmentExecuteMsg struct {
-	SubmitCommitment struct {
-		Commitment string `json:"commitment"`
-	} `json:"submit_commitment"`
-}
-
-func NewControllerSubmitCommitmentExecuteMsg(commitment string) (string, error) {
-	var msg controllerSubmitCommitmentExecuteMsg
-
-	msg.SubmitCommitment.Commitment = commitment
 
 	bytes, err := json.Marshal(msg)
 	if err != nil {

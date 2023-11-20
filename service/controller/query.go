@@ -9,27 +9,6 @@ import (
 	xutil "github.com/xpladev/xpla.go/util"
 )
 
-// QueryCommtiment godoc
-// @Summary      Generate commitment
-// @Description  Generate commitment by querying
-// @Tags         Controller
-// @Accept       json
-// @Produce      json
-// @Param        label        path      string  true  "domain name for register"
-// @Param        domain-owner path      string  true  "domain owner address"
-// @Param        secret       path      string  true  "secret words"
-// @Success      200          {object}  service.QueryResponse
-// @Failure      400          {object}  service.QueryResponse
-// @Router       /controller/commitment/{label}/{domain-owner}/{secret} [get]
-func QueryCommitment(xnsContext *types.XnsContext, label, domainOwner, secret string) (*service.QueryResponse, error) {
-	msg, err := NewControllerGetCommitmentQueryMsg(label, domainOwner, secret)
-	if err != nil {
-		return nil, util.LogErr(types.ErrNewMsg, err)
-	}
-
-	return Query(xnsContext, msg)
-}
-
 // QueryBalance godoc
 // @Summary      Balance of the controller
 // @Description  Get balance of the controller contract

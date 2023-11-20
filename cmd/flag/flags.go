@@ -8,8 +8,6 @@ const (
 	FlagTopPrice             = "top-price"
 	FlagMiddlePrice          = "middle-price"
 	FlagLowPrice             = "low-price"
-	FlagMinCommitmentAge     = "min-commitment-age"
-	FlagMaxCommitmentAge     = "max-commitment-age"
 	FlagMinRegisterDuration  = "min-register-duration"
 	FlagRegistrarAddress     = "registrar-address"
 	FlagExpireAtHeight       = "expire-height"
@@ -58,22 +56,6 @@ func LowPriceI(lowPrice uint64) interface{} {
 		lowPriceI = lowPrice
 	}
 	return lowPriceI
-}
-
-func MinCommitmentAgeI(minCommitmentAge uint64) interface{} {
-	var minCommitmentAgeI interface{}
-	if minCommitmentAge != 0 {
-		minCommitmentAgeI = minCommitmentAge
-	}
-	return minCommitmentAgeI
-}
-
-func MaxCommitmentAgeI(maxCommitmentAge uint64) interface{} {
-	var maxCommitmentAgeI interface{}
-	if maxCommitmentAge != 0 {
-		maxCommitmentAgeI = maxCommitmentAge
-	}
-	return maxCommitmentAgeI
 }
 
 func MinRegisterDurationI(minRegisterDuration uint64) interface{} {

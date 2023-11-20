@@ -51,8 +51,6 @@ type ContractsOption struct {
 		TopPrice                      string `yaml:"top_price" json:"top_price"`
 		MiddlePrice                   string `yaml:"middle_price" json:"middle_price"`
 		LowPrice                      string `yaml:"low_price" json:"low_price"`
-		MinCommitmentAge              string `yaml:"min_commitment_age" json:"min_commitment_age"`
-		MaxCommitmentAge              string `yaml:"max_commitment_age" json:"max_commitment_age"`
 		MinRegisterDuration           string `yaml:"min_register_duration" json:"min_register_duration"`
 		MaxFreeDomainRegisterDuration string `yaml:"max_free_domain_register_duration" json:"max_free_domain_register_duration"`
 		TopDomain                     string `yaml:"top_domain" json:"top_domain"`

@@ -17,29 +17,6 @@ func NewControllerGetConfigQueryMsg() (string, error) {
 	return string(bytes), nil
 }
 
-type controllerGetCommitmentQueryMsg struct {
-	Commitment struct {
-		Secret      string `json:"secret"`
-		DomainOwner string `json:"domain_owner"`
-		Label       string `json:"label"`
-	} `json:"commitment"`
-}
-
-func NewControllerGetCommitmentQueryMsg(label, domainOwner, secret string) (string, error) {
-	var msg controllerGetCommitmentQueryMsg
-
-	msg.Commitment.Label = label
-	msg.Commitment.DomainOwner = domainOwner
-	msg.Commitment.Secret = secret
-
-	bytes, err := json.Marshal(msg)
-	if err != nil {
-		return "", err
-	}
-
-	return string(bytes), nil
-}
-
 type controllerControllerBalanceQueryMsg struct {
 	Balance struct{} `json:"balance"`
 }

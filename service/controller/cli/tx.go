@@ -32,7 +32,6 @@ func ExecuteControllerCmd(xnsContext *types.XnsContext) *cobra.Command {
 
 	cmd.AddCommand(
 		controllerSetConfigCmd(xnsContext),
-		submitCommitmentCmd(xnsContext),
 		registerCmd(xnsContext),
 		renewCmd(xnsContext),
 		enrollSubdomainCmd(xnsContext),
@@ -68,16 +67,6 @@ $ %s e ct set-config
 				return util.LogErr(types.ErrParseData, err)
 			}
 
-			minCommitmentAge, err := cmd.Flags().GetUint64(flag.FlagMinCommitmentAge)
-			if err != nil {
-				return util.LogErr(types.ErrParseData, err)
-			}
-
-			maxCommitmentAge, err := cmd.Flags().GetUint64(flag.FlagMaxCommitmentAge)
-			if err != nil {
-				return util.LogErr(types.ErrParseData, err)
-			}
-
 			minRegisterDuration, err := cmd.Flags().GetUint64(flag.FlagMinRegisterDuration)
 			if err != nil {
 				return util.LogErr(types.ErrParseData, err)
@@ -92,8 +81,6 @@ $ %s e ct set-config
 				flag.TopPriceI(topPrice),
 				flag.MiddlePriceI(middlePrice),
 				flag.LowPriceI(lowPrice),
-				flag.MinCommitmentAgeI(minCommitmentAge),
-				flag.MaxCommitmentAgeI(maxCommitmentAge),
 				flag.MinRegisterDurationI(minRegisterDuration),
 				flag.RegistrarAddressI(registrarAddress),
 			)
@@ -114,41 +101,8 @@ $ %s e ct set-config
 	cmd.Flags().Uint64(flag.FlagTopPrice, 0, "set config new top price")
 	cmd.Flags().Uint64(flag.FlagMiddlePrice, 0, "set config new middle price")
 	cmd.Flags().Uint64(flag.FlagLowPrice, 0, "set config new low price")
-	cmd.Flags().Uint64(flag.FlagMinCommitmentAge, 0, "set config new min commitment age")
-	cmd.Flags().Uint64(flag.FlagMaxCommitmentAge, 0, "set config new max commitment age")
 	cmd.Flags().Uint64(flag.FlagMinRegisterDuration, 0, "set config new min register duration")
 	cmd.Flags().String(flag.FlagRegistrarAddress, "", "set config new registrar contract address")
-
-	return cmd
-}
-
-func submitCommitmentCmd(xnsContext *types.XnsContext) *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "submit-commitment",
-		Short: "submit commitment",
-		Args:  param.WithUsage(cobra.ExactArgs(1)),
-		Example: strings.TrimSpace(fmt.Sprintf(`
-$ %s execute controller submit-commitment [commitment]
-$ %s e ct submit-commitment [commitment]
-		`, types.DefaultAppName, types.DefaultAppName)),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			commitment := args[0]
-
-			msg, err := controller.NewControllerSubmitCommitmentExecuteMsg(commitment)
-			if err != nil {
-				return util.LogErr(types.ErrNewMsg, err)
-			}
-
-			res, err := executeController(xnsContext, msg, types.ZeroAmount)
-			if err != nil {
-				return err
-			}
-
-			util.LogInfo(res.Response)
-
-			return nil
-		},
-	}
 
 	return cmd
 }
