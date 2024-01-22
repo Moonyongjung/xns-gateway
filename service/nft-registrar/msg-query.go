@@ -190,6 +190,26 @@ func NewNftRegistrarSubdomainsQueryMsg(label, topDomain string) (string, error) 
 	return string(bytes), nil
 }
 
+type nftRegistrarPrimaryDomainQueryMsg struct {
+	Xns struct {
+		PrimaryDomain struct {
+			AccountAddress string `json:"account_address"`
+		} `json:"primary_domain"`
+	} `json:"xns"`
+}
+
+func NewNftRegistrarPrimaryDomainQueryMsg(account string) (string, error) {
+	var msg nftRegistrarPrimaryDomainQueryMsg
+
+	msg.Xns.PrimaryDomain.AccountAddress = account
+
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
 type nftRegistrarHashResultQueryMsg struct {
 	Xns struct {
 		Hash struct {

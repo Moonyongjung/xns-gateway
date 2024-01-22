@@ -466,6 +466,31 @@ paths:
       summary: the owner info of the NFT
       tags:
       - NFT-Registrar
+  /nft-registrar/primary-domain/{account}:
+    get:
+      consumes:
+      - application/json
+      description: Get a primary domain of the requested account address
+      parameters:
+      - description: account address to retrieve
+        in: path
+        name: account
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/service.QueryResponse'
+      summary: Get primary domain
+      tags:
+      - NFT-Registrar
   /nft-registrar/registrar:
     get:
       consumes:

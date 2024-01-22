@@ -183,6 +183,25 @@ func QuerySubdomains(xnsContext *types.XnsContext, label, topDomain string) (*se
 	return Query(xnsContext, msg)
 }
 
+// QueryPrimaryDomain godoc
+// @Summary      Get primary domain
+// @Description  Get a primary domain of the requested account address
+// @Tags         NFT-Registrar
+// @Accept       json
+// @Produce      json
+// @Param        account          path      string  true  "account address to retrieve"
+// @Success      200    {object}  service.QueryResponse
+// @Failure      400    {object}  service.QueryResponse
+// @Router       /nft-registrar/primary-domain/{account} [get]
+func QueryPrimaryDomain(xnsContext *types.XnsContext, account string) (*service.QueryResponse, error) {
+	msg, err := NewNftRegistrarPrimaryDomainQueryMsg(account)
+	if err != nil {
+		return nil, util.LogErr(types.ErrNewMsg, err)
+	}
+
+	return Query(xnsContext, msg)
+}
+
 // QueryHashResult godoc
 // @Summary      Get hash result
 // @Description  Get hash result for an input

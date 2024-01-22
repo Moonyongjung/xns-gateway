@@ -35,8 +35,6 @@ func ExecuteNftRegistrarCmd(xnsContext *types.XnsContext) *cobra.Command {
 		approveAllCmd(xnsContext),
 		revokeAllCmd(xnsContext),
 		transferNftCmd(xnsContext),
-		sendNftCmd(xnsContext),
-		burnCmd(xnsContext),
 	)
 	return cmd
 }
@@ -244,68 +242,6 @@ $ %s e n transfer-nft [sender] [recipient] [token-id]
 			sender, recipient, tokenID := args[0], args[1], args[2]
 
 			msg, err := nftregistrar.NewNftRegistrarTransferNftExecuteMsg(sender, recipient, tokenID)
-			if err != nil {
-				return util.LogErr(types.ErrNewMsg, err)
-			}
-
-			res, err := nftregistrar.ExecuteNftRegistrar(xnsContext, msg, types.ZeroAmount)
-			if err != nil {
-				return err
-			}
-
-			util.LogInfo(res.Response)
-
-			return nil
-		},
-	}
-
-	return cmd
-}
-
-func sendNftCmd(xnsContext *types.XnsContext) *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "send-nft",
-		Short: "send NFT token ID to the contract",
-		Args:  param.WithUsage(cobra.ExactArgs(4)),
-		Example: strings.TrimSpace(fmt.Sprintf(`
-$ %s execute nft-registrar send-nft [sender] [contract] [token-id] [binary-msg]
-$ %s e n send-nft [sender] [contract] [token-id] [binary-msg]
-		`, types.DefaultAppName, types.DefaultAppName)),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			sender, contract, tokenID, msgBinary := args[0], args[1], args[2], args[3]
-
-			msg, err := nftregistrar.NewNftRegistrarSendNftExecuteMsg(sender, contract, tokenID, msgBinary)
-			if err != nil {
-				return util.LogErr(types.ErrNewMsg, err)
-			}
-
-			res, err := nftregistrar.ExecuteNftRegistrar(xnsContext, msg, types.ZeroAmount)
-			if err != nil {
-				return err
-			}
-
-			util.LogInfo(res.Response)
-
-			return nil
-		},
-	}
-
-	return cmd
-}
-
-func burnCmd(xnsContext *types.XnsContext) *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "burn",
-		Short: "burn the token ID",
-		Args:  param.WithUsage(cobra.ExactArgs(1)),
-		Example: strings.TrimSpace(fmt.Sprintf(`
-$ %s execute nft-registrar burn [token-id]
-$ %s e n burn [token-id]
-		`, types.DefaultAppName, types.DefaultAppName)),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			tokenID := args[0]
-
-			msg, err := nftregistrar.NewNftRegistrarBurnExecuteMsg(tokenID)
 			if err != nil {
 				return util.LogErr(types.ErrNewMsg, err)
 			}
