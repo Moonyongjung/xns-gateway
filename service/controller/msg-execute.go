@@ -73,16 +73,14 @@ func NewControllerSetConfigExecuteMsg(
 type controllerDomainRegisterExecuteMsg struct {
 	Register struct {
 		Label          string `json:"label"`
-		Secret         string `json:"secret"`
 		ExpireDuration uint64 `json:"expire_duration"`
 	} `json:"register"`
 }
 
-func NewControllerDomainRegisterExecuteMsg(label, secret string, expireDuration uint64) (string, error) {
+func NewControllerDomainRegisterExecuteMsg(label string, expireDuration uint64) (string, error) {
 	var msg controllerDomainRegisterExecuteMsg
 
 	msg.Register.Label = label
-	msg.Register.Secret = secret
 	msg.Register.ExpireDuration = expireDuration
 
 	bytes, err := json.Marshal(msg)
@@ -132,6 +130,48 @@ func NewControllerEnrollSubdomainExecuteMsg(label, subdomainLabel, textData, acc
 	msg.EnrollSubdomain.AccountAddressData = accountAddressData
 	msg.EnrollSubdomain.PublicKeyData = publicKeyData
 	msg.EnrollSubdomain.ContentHashData = contentHashData
+
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+type controllerRemoveSubdomainExecuteMsg struct {
+	RemoveSubdomain struct {
+		Label          string `json:"label"`
+		SubdomainLabel string `json:"subdomain_label"`
+	} `json:"remove_subdomain"`
+}
+
+func NewControllerRemoveSubdomainExecuteMsg(label, subdomainLabel string) (string, error) {
+	var msg controllerRemoveSubdomainExecuteMsg
+
+	msg.RemoveSubdomain.Label = label
+	msg.RemoveSubdomain.SubdomainLabel = subdomainLabel
+
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+type controllerChangeSubdomainLabelExecuteMsg struct {
+	ChangeSubdomainLabel struct {
+		Label                  string `json:"label"`
+		PreviousSubdomainLabel string `json:"previous_subdomain_label"`
+		NewSubdomainLabel      string `json:"new_subdomain_label"`
+	} `json:"change_subdomain_label"`
+}
+
+func NewControllerChangeSubdomainLabelExecuteMsg(label, previousLabel, newLabel string) (string, error) {
+	var msg controllerChangeSubdomainLabelExecuteMsg
+
+	msg.ChangeSubdomainLabel.Label = label
+	msg.ChangeSubdomainLabel.PreviousSubdomainLabel = previousLabel
+	msg.ChangeSubdomainLabel.NewSubdomainLabel = newLabel
 
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -190,6 +230,24 @@ func NewControllerWithdrawExecuteMsg(requestWithdrawAmount *big.Int) (string, er
 	var msg controllerWitdrawExecuteMsg
 
 	msg.Withdraw.RequestWithdrawAmount = requestWithdrawAmount
+
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+type controllerPrimaryExecuteMsg struct {
+	Primary struct {
+		Label string `json:"label"`
+	} `json:"primary"`
+}
+
+func NewControllerPrimaryExecuteMsg(label string) (string, error) {
+	var msg controllerPrimaryExecuteMsg
+
+	msg.Primary.Label = label
 
 	bytes, err := json.Marshal(msg)
 	if err != nil {

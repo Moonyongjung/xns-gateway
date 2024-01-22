@@ -37,6 +37,7 @@ func QueryNftRegistrarCmd(xnsContext *types.XnsContext) *cobra.Command {
 		tokenIDByDomainCmd(xnsContext),
 		subdomainCmd(xnsContext),
 		subdomainsCmd(xnsContext),
+		primaryDomainCmd(xnsContext),
 		hashResultCmd(xnsContext),
 		contractInfoCmd(xnsContext),
 		nftInfoCmd(xnsContext),
@@ -321,6 +322,36 @@ $ %s q n subdomains [domain]
 			}
 
 			res, err := nftregistrar.QuerySubdomains(xnsContext, second, top)
+			if err != nil {
+				return err
+			}
+
+			resBytes, err := json.Marshal(*res)
+			if err != nil {
+				return util.LogErr(types.ErrParseData, err)
+			}
+
+			util.LogInfo(string(resBytes))
+			return nil
+		},
+	}
+
+	return cmd
+}
+
+func primaryDomainCmd(xnsContext *types.XnsContext) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "primary-domain",
+		Short: "get primary domain of the account",
+		Args:  param.WithUsage(cobra.ExactArgs(1)),
+		Example: strings.TrimSpace(fmt.Sprintf(`
+$ %s query nft-registrar primary-domain [account-address]
+$ %s q n primary-domain [account-address]
+		`, types.DefaultAppName, types.DefaultAppName)),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			account := args[0]
+
+			res, err := nftregistrar.QueryPrimaryDomain(xnsContext, account)
 			if err != nil {
 				return err
 			}

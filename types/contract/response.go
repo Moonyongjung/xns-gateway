@@ -10,11 +10,15 @@ type StoreResponseInfo struct {
 }
 
 func NewStoreResponseInfo(contract string, response *xtypes.TxRes) StoreResponseInfo {
-	codeID := response.Response.Logs[0].Events[1].Attributes[0].Value
-	return StoreResponseInfo{
-		Contract: contract,
-		CodeID:   codeID,
+	for _, attr := range response.Response.Logs[0].Events[1].Attributes {
+		if attr.Key == "code_id" {
+			return StoreResponseInfo{
+				Contract: contract,
+				CodeID:   attr.Value,
+			}
+		}
 	}
+	return StoreResponseInfo{}
 }
 
 type InstantiateResponseInfo struct {
@@ -23,9 +27,13 @@ type InstantiateResponseInfo struct {
 }
 
 func NewInstantiateResponseInfo(contract string, response *xtypes.TxRes) InstantiateResponseInfo {
-	address := response.Response.Logs[0].Events[0].Attributes[0].Value
-	return InstantiateResponseInfo{
-		Contract: contract,
-		Address:  address,
+	for _, attr := range response.Response.Logs[0].Events[0].Attributes {
+		if attr.Key == "_contract_address" {
+			return InstantiateResponseInfo{
+				Contract: contract,
+				Address:  attr.Value,
+			}
+		}
 	}
+	return InstantiateResponseInfo{}
 }

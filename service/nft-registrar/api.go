@@ -12,6 +12,7 @@ const (
 	QueryTokenIDByDomainLabel        = "tokenid-by-domain"
 	QuerySubdomainLabel              = "subdomain"
 	QuerySubdomainsLabel             = "subdomains"
+	QueryPrimaryDomainLabel          = "primary-domain"
 	QueryHashResultLabel             = "hash"
 	QueryContractInfoLabel           = "contract-info"
 	QueryNftInfoLabel                = "nft-info"

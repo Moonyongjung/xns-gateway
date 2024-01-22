@@ -707,6 +707,44 @@ const docTemplate = `{
                 }
             }
         },
+        "/nft-registrar/primary-domain/{account}": {
+            "get": {
+                "description": "Get a primary domain of the requested account address",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "NFT-Registrar"
+                ],
+                "summary": "Get primary domain",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "account address to retrieve",
+                        "name": "account",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/service.QueryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/service.QueryResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/nft-registrar/registrar": {
             "get": {
                 "description": "Get connected address of the registrar contract",

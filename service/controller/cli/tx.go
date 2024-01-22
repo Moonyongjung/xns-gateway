@@ -35,9 +35,12 @@ func ExecuteControllerCmd(xnsContext *types.XnsContext) *cobra.Command {
 		registerCmd(xnsContext),
 		renewCmd(xnsContext),
 		enrollSubdomainCmd(xnsContext),
+		removeSubdomainCmd(xnsContext),
+		changeSubdomainLabelCmd(xnsContext),
 		saveDomainData(xnsContext),
 		withdrawAllCmd(xnsContext),
 		withdrawCmd(xnsContext),
+		primaryCmd(xnsContext),
 	)
 	return cmd
 }
@@ -111,20 +114,20 @@ func registerCmd(xnsContext *types.XnsContext) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "register",
 		Short: "register domain",
-		Args:  param.WithUsage(cobra.ExactArgs(4)),
+		Args:  param.WithUsage(cobra.ExactArgs(3)),
 		Example: strings.TrimSpace(fmt.Sprintf(`
-$ %s execute controller register [amount] [label] [expire-duration] [secret]
-$ %s e ct register [amount] [label] [expire-duration] [secret]
+$ %s execute controller register [amount] [label] [expire-duration]
+$ %s e ct register [amount] [label] [expire-duration]
 		`, types.DefaultAppName, types.DefaultAppName)),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			amount, label, duration, secret := args[0], args[1], args[2], args[3]
+			amount, label, duration := args[0], args[1], args[2]
 
 			durationU64, err := xutil.FromStringToUint64(duration)
 			if err != nil {
 				return util.LogErr(types.ErrParseData, err)
 			}
 
-			msg, err := controller.NewControllerDomainRegisterExecuteMsg(label, secret, durationU64)
+			msg, err := controller.NewControllerDomainRegisterExecuteMsg(label, durationU64)
 			if err != nil {
 				return util.LogErr(types.ErrNewMsg, err)
 			}
@@ -238,6 +241,68 @@ $ %s e ct enroll-subdomain [label] [subdomain-label]
 	return cmd
 }
 
+func removeSubdomainCmd(xnsContext *types.XnsContext) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "remove-subdomain",
+		Short: "remove subdomain of the domain",
+		Args:  param.WithUsage(cobra.ExactArgs(2)),
+		Example: strings.TrimSpace(fmt.Sprintf(`
+$ %s execute controller remove-subdomain [label] [subdomain-label]
+$ %s e ct remove-subdomain [label] [subdomain-label]
+		`, types.DefaultAppName, types.DefaultAppName)),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			label, subdomainLabel := args[0], args[1]
+
+			msg, err := controller.NewControllerRemoveSubdomainExecuteMsg(label, subdomainLabel)
+			if err != nil {
+				return util.LogErr(types.ErrNewMsg, err)
+			}
+
+			res, err := executeController(xnsContext, msg, types.ZeroAmount)
+			if err != nil {
+				return err
+			}
+
+			util.LogInfo(res.Response)
+
+			return nil
+		},
+	}
+
+	return cmd
+}
+
+func changeSubdomainLabelCmd(xnsContext *types.XnsContext) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "change-subdomain-label",
+		Short: "change subdomain label",
+		Args:  param.WithUsage(cobra.ExactArgs(3)),
+		Example: strings.TrimSpace(fmt.Sprintf(`
+$ %s execute controller change-subdomain-label [label] [previous-subdomain-label] [new-subdomain-label]
+$ %s e ct change-subdomain-label [label] [previous-subdomain-label] [new-subdomain-label]
+		`, types.DefaultAppName, types.DefaultAppName)),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			label, previousLabel, newLabel := args[0], args[1], args[2]
+
+			msg, err := controller.NewControllerChangeSubdomainLabelExecuteMsg(label, previousLabel, newLabel)
+			if err != nil {
+				return util.LogErr(types.ErrNewMsg, err)
+			}
+
+			res, err := executeController(xnsContext, msg, types.ZeroAmount)
+			if err != nil {
+				return err
+			}
+
+			util.LogInfo(res.Response)
+
+			return nil
+		},
+	}
+
+	return cmd
+}
+
 func saveDomainData(xnsContext *types.XnsContext) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "save-domain-data",
@@ -342,6 +407,37 @@ $ %s e ct withdraw [amount]
 			}
 
 			msg, err := controller.NewControllerWithdrawExecuteMsg(amountBigInt)
+			if err != nil {
+				return util.LogErr(types.ErrNewMsg, err)
+			}
+
+			res, err := executeController(xnsContext, msg, types.ZeroAmount)
+			if err != nil {
+				return err
+			}
+
+			util.LogInfo(res.Response)
+
+			return nil
+		},
+	}
+
+	return cmd
+}
+
+func primaryCmd(xnsContext *types.XnsContext) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "primary",
+		Short: "set primary domain of the account",
+		Args:  param.WithUsage(cobra.ExactArgs(1)),
+		Example: strings.TrimSpace(fmt.Sprintf(`
+$ %s execute controller primary [label]
+$ %s e ct primary [label]
+		`, types.DefaultAppName, types.DefaultAppName)),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			label := args[0]
+
+			msg, err := controller.NewControllerPrimaryExecuteMsg(label)
 			if err != nil {
 				return util.LogErr(types.ErrNewMsg, err)
 			}
