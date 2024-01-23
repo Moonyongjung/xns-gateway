@@ -8,6 +8,11 @@ import (
 	"github.com/Moonyongjung/xns-gateway/types"
 )
 
+type Royalty struct {
+	RoyaltyPercentage     uint64 `json:"royalty_percentage"`
+	RoyaltyPaymentAddress string `json:"royalty_payment_address"`
+}
+
 type controllerSetConfigExecuteMsg struct {
 	SetConfig struct {
 		TopPrice            uint64 `json:"top_price,omitempty"`
@@ -248,6 +253,30 @@ func NewControllerPrimaryExecuteMsg(label string) (string, error) {
 	var msg controllerPrimaryExecuteMsg
 
 	msg.Primary.Label = label
+
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+type controllerProxyRegisterMsg struct {
+	ProxyRegister struct {
+		Label          string `json:"label"`
+		ExpireDuration uint64 `json:"expire_duration"`
+		Recipient      string `json:"recipient"`
+		// Royalty        *Royalty `json:"royalty,omitempty"`
+	} `json:"proxy_register"`
+}
+
+func NewControllerProxyRegisterMsg(label string, expireDuration uint64, recipient string) (string, error) {
+	var msg controllerProxyRegisterMsg
+
+	msg.ProxyRegister.Label = label
+	msg.ProxyRegister.ExpireDuration = expireDuration
+	msg.ProxyRegister.Recipient = recipient
+	// msg.ProxyRegister.Royalty = &royalty
 
 	bytes, err := json.Marshal(msg)
 	if err != nil {
