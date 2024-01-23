@@ -41,6 +41,7 @@ func ExecuteControllerCmd(xnsContext *types.XnsContext) *cobra.Command {
 		withdrawAllCmd(xnsContext),
 		withdrawCmd(xnsContext),
 		primaryCmd(xnsContext),
+		proxyRegisterCmd(xnsContext),
 	)
 	return cmd
 }
@@ -438,6 +439,42 @@ $ %s e ct primary [label]
 			label := args[0]
 
 			msg, err := controller.NewControllerPrimaryExecuteMsg(label)
+			if err != nil {
+				return util.LogErr(types.ErrNewMsg, err)
+			}
+
+			res, err := executeController(xnsContext, msg, types.ZeroAmount)
+			if err != nil {
+				return err
+			}
+
+			util.LogInfo(res.Response)
+
+			return nil
+		},
+	}
+
+	return cmd
+}
+
+func proxyRegisterCmd(xnsContext *types.XnsContext) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "proxy-register",
+		Short: "proxy register",
+		Args:  param.WithUsage(cobra.ExactArgs(1)),
+		Example: strings.TrimSpace(fmt.Sprintf(`
+$ %s execute controller proxy-register [label] [expire-duration] [recipient]
+$ %s e ct proxy-register [label] [expire-duration] [recipient]
+		`, types.DefaultAppName, types.DefaultAppName)),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			label, expireDuration, recipient := args[0], args[1], args[2]
+
+			expireDurationU64, err := xutil.FromStringToUint64(expireDuration)
+			if err != nil {
+				return util.LogErr(types.ErrParseData, err)
+			}
+
+			msg, err := controller.NewControllerProxyRegisterMsg(label, expireDurationU64, recipient)
 			if err != nil {
 				return util.LogErr(types.ErrNewMsg, err)
 			}
